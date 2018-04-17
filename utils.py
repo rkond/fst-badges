@@ -4,22 +4,24 @@ from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
-from PIL import Image
+from PIL import Image, ImageColor
 import csv
 
-from config import fonts, BADGE_TYPE_NONE, badgeTypeStrings, badgeImageFiles, badgeImageSize, printBox, getDataFields, mm
+from config import fonts, badgeImageFiles, badgeImageSize, badgeImageColors, printBox, getDataFields, mm
 
 for faceName, fontFile in fonts.items():
     pdfmetrics.registerFont(TTFont(faceName, fontFile))
 
 
-def splitImageSides(img):
-    w, h = img.size
+def prepareImageSides(img, color):
+    n = Image.new(mode='RGBA', size=img.size, color=ImageColor.getrgb(color))
+    n.paste(img, mask=img)
+    w, h = n.size
     w //= 2
     dataF = BytesIO()
     dataB = BytesIO()
-    img.crop((0, 0, w, h)).save(dataF, format='png')
-    img.crop((w, 0, w * 2, h)).save(dataB, format='png')
+    n.crop((0, 0, w, h)).save(dataF, format='png')
+    n.crop((w, 0, w * 2, h)).save(dataB, format='png')
     dataF.seek(0)
     dataB.seek(0)
     return (ImageReader(dataF), ImageReader(dataB))
@@ -61,6 +63,6 @@ def nextItem(x, y, canvases):
 
 
 badgeImages = {
-    t: splitImageSides(Image.open(img))
+    t: prepareImageSides(Image.open(img), badgeImageColors[t])
     for t, img in badgeImageFiles.items()
 }
