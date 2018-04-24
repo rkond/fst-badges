@@ -24,7 +24,7 @@ for name, task in printTask.items():
 
     for r in data:
         for i in range(len(task['splits'])):
-            drawItem(pages[i], task['images'], task['page']['box'][2] - task['images']['size'][0] - x if i%2 else x , y, task['fields'][i], r)
+            drawItem(pages[i], task['images'], task['page']['box'][2] - task['images']['size'][0] - x if i%2 else x , y, task['fields'][i], r, i)
         x, y = nextItem(task['images'], task['page'], x, y, pages)
 
     for c in pages:

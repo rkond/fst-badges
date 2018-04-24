@@ -40,9 +40,9 @@ def readData(filename):
     return data
 
 
-def drawItem(cnv, image_params, x, y, fields, row):
+def drawItem(cnv, image_params, x, y, fields, row, side = 0):
     t = row["type"]
-    cnv.drawImage(image_params['images'][t][0], x, y,
+    cnv.drawImage(image_params['images'][t][side], x, y,
                   image_params['size'][0], image_params['size'][1])
     for n, f in fields.items():
         value = row[n]
@@ -56,10 +56,10 @@ def drawItem(cnv, image_params, x, y, fields, row):
 
 def nextItem(image_params, page_params, x, y, canvases):
     x += image_params['size'][0]
-    if x + image_params['size'][0] + page_params['box'][0] >= page_params['box'][2]:
+    if x + image_params['size'][0] >= page_params['box'][2]:
         y += image_params['size'][1]
         x = page_params['box'][0]
-    if y + image_params['size'][1] + page_params['box'][1] >= page_params['box'][3]:
+    if y + image_params['size'][1] >= page_params['box'][3]:
         for c in canvases:
             c.showPage()
         y = page_params['box'][1]
