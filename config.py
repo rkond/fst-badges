@@ -5,7 +5,8 @@ from reportlab.lib.units import mm
 
 fonts = {
     "GaramondRegular": "../../.fonts/13308.ttf",
-    "GaramondBold": "../../.fonts/12735.ttf"
+    "GaramondBold": "../../.fonts/12735.ttf",
+    "LinoScript": "./LinoScript.ttf",
 }
 
 # Options to get dete from csv file
@@ -88,7 +89,6 @@ badgePrintBox = (9 * mm, 10 * mm, 311 * mm, 440 * mm)
 #badgePageSize = (450 * mm, 320 * mm)
 #badgePrintBox = (10 * mm, 9 * mm, 430 * mm, 302 * mm)
 
-
 badgeFieldsB = {
     "FNameE": (canvas.Canvas.drawCentredString, 47 * mm, 38 * mm, 86 * mm,
                ("GaramondBold", 17 * mm)),
@@ -136,8 +136,8 @@ certPageSize = (450 * mm, 320 * mm)
 certPrintBox = (10 * mm, 9 * mm, 440 * mm, 311 * mm)
 
 certFields = {
-    "NameR": (canvas.Canvas.drawCentredString, 105 * mm, 179 * mm, 150 * mm,
-              ("GaramondBold", 10 * mm)),
+    "NameR": (canvas.Canvas.drawCentredString, 105 * mm, 179 * mm, 170 * mm,
+              ("LinoScript", 14 * mm)),
 }
 
 ### What to print
